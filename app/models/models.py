@@ -1,12 +1,18 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
+from sqlalchemy import create_engine
+from sqlalchemy.sql import text
+
+from config import SQLALCHEMY_DATABASE_URI
 
 db = SQLAlchemy()
+
 
 def init_db(app):
     db.app = app
     db.init_app(app)
-    #db.create_all()
+    # db.create_all()
+
 
 class Cars(db.Model):
     car_id = db.Column(db.Integer, primary_key=True)
@@ -39,15 +45,30 @@ class Cars(db.Model):
         self.price_eur = price_eur
 
     @classmethod
-    def get_distinct_values(self, column):
+    def get_distinct_values(cls, column):
         return [row[0] for row in db.session.query(column).distinct().all()]
 
     @classmethod
-    def get_min_value(self, column):
+    def get_min_value(cls, column):
         return db.session.query(func.min(column)).all()
 
     @classmethod
-    def get_max_value(self, column):
+    def get_max_value(cls, column):
         return db.session.query(func.max(column)).all()
 
+    @classmethod
+    def get_where_conditions(cls, **kwargs):
+        engine = create_engine(SQLALCHEMY_DATABASE_URI)
+        with engine.connect() as con:
 
+            sql = "SELECT * FROM Cars WHERE "
+            for key, value in kwargs.items():
+                if len(value) == 1:
+                    sql += f"{key} = '{value[0]}' AND "
+                elif len(value) > 1:
+                    sql += f"{key} IN {tuple(value)} AND "
+            sql = sql[:-5]
+
+            statement = text(sql)
+            result = con.execute(statement)
+            return result.fetchall()

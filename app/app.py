@@ -1,7 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
 
 from app.models.models import Cars
-from app.utils import utils
 from .models import models
 
 app = Flask(__name__)
@@ -18,7 +17,11 @@ def index():
 @app.route('/form', methods=["POST", "GET"])
 def form():
     if request.method == "POST":
-        pass
+        maker_choice = request.form.getlist("maker")
+        model_choice = request.form.getlist("model")
+        mileage_choice = request.form.getlist("mileage")
+        data = Cars.get_where_conditions(maker=maker_choice, model=model_choice)
+        return render_template("results.html", data=data)
     else:
         car_maker = Cars.get_distinct_values(Cars.maker)
         car_models = Cars.get_distinct_values(Cars.model)
@@ -34,7 +37,7 @@ def form():
         # fuel_type = db.Column(db.String, nullable=False)
         # price_eur = db.Column(db.Float, nullable=False)
 
-        return render_template('form.html', makers=car_maker, models=car_models)#, mileage=car_mileage, years=car_year)
+        return render_template('form.html', makers=car_maker, models=car_models, mileage=car_mileage, years=car_year)
 
 
 if __name__ == '__main__':
