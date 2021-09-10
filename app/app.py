@@ -19,7 +19,7 @@ def form():
     if request.method == "POST":
         maker_choice = request.form.getlist("maker")
         model_choice = request.form.getlist("model")
-        mileage_choice = request.form.getlist("mileage")
+        # mileage_choice = request.form.getlist("mileage")
         data = Cars.get_where_conditions(maker=maker_choice, model=model_choice)
         return render_template("results.html", data=data)
     else:
