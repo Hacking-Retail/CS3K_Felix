@@ -1,0 +1,31 @@
+<html>
+    <head>
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4.3.2/css/metro-all.min.css">
+
+        {% if title %}
+        <title>{{ title }} - Castor3000</title>
+        {% else %}
+        <title>Castor3000</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>
+            Castor3000:
+            <a href="/index">Home</a>
+            <a href="/form">Get a car</a>
+        </div>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+
+    <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+    </body>
+</html>

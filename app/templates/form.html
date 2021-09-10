@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>What would you like ?</h1>
+    <form action="#" method="post">
+
+        <label for="maker-select">Maker:</label>
+            <select name="maker" id="maker-select" multiple="multiple">
+                {% for maker in makers %}
+                <option value={{ maker }}>{{ maker }}</option>
+                {% endfor %}
+            </select>
+        <br>
+        <label for="model-select">Model:</label>
+            <select name="model" id="model-select" multiple="multiple">
+                {% for model in models %}
+                <option value={{ model }}>{{ model }}</option>
+                {% endfor %}
+            </select>
+        <br>
+
+{#            <label for="mileage-select">Mileage</label>#}
+{#        <input id=mileage-select data-role="doubleslider"#}
+{#           data-show-min-max="true"#}
+{#           data-hint-mask-min="Min: $1"#}
+{#           data-hint-mask-max="Max: $1"#}
+{#           data-hint-always="true"#}
+{#           data-value-min={{ mileage[0] }}#}
+{#           data-value-max={{ mileage[1] }}#}
+{#           data-cls-hint="bg-cyan fg-white">#}
+
+
+    <p><input type="submit" value="Find me a car !"/></p>
+    </form>
+{% endblock %}

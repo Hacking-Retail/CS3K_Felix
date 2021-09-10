@@ -1,4 +1,4 @@
-,maker,model,mileage,manufacture_year,engine_displacement,engine_power,color_slug,transmission,door_count,seat_count,fuel_type,price_eur
+car_id,maker,model,mileage,manufacture_year,engine_displacement,engine_power,color_slug,transmission,door_count,seat_count,fuel_type,price_eur
 3539233,skoda,superb,124922.0,2013.0,1968.0,103.0,brown,man,5.0,5.0,diesel,1295.34
 3539234,seat,alhambra,239000.0,2007.0,1968.0,103.0,blue,man,5.0,7.0,diesel,1295.34
 3539237,volkswagen,caravelle,110000.0,2013.0,1968.0,103.0,black,man,4.0,9.0,diesel,1295.34
